@@ -7,10 +7,10 @@
 <style>
 /* ══ THEMES ═══════════════════════════════════════════ */
 [data-theme="light"]{
-  --bg:#F7F8FA;--bg2:#FFFFFF;--surface:#FFFFFF;--surface2:#F0F2F6;
-  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
-  --text:#1A2B4A;--text2:#4A5568;--text3:#8C959F;
-  --inp:#FFFFFF;--card-shadow:0 2px 12px rgba(0,0,0,0.08);
+  --bg:#F5F6F8;--bg2:#FFFFFF;--surface:#FFFFFF;--surface2:#ECEEF2;
+  --border:rgba(0,0,0,0.09);--border2:rgba(0,0,0,0.18);
+  --text:#0D1117;--text2:#1E2D40;--text3:#4A5568;
+  --inp:#FFFFFF;--card-shadow:0 2px 12px rgba(0,0,0,0.09);
 }
 [data-theme="dark"]{
   --bg:#0d1117;--bg2:#161b22;--surface:#1c2333;--surface2:#21262d;
@@ -67,7 +67,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .stat-item{text-align:center}
 .stat-num{font-size:1.6rem;font-weight:800;color:var(--bx);font-family:"Segoe UI",sans-serif}
 [data-theme="dark"] .stat-num{color:#ff8080}
-.stat-lbl{font-size:.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.stat-lbl{font-size:.75rem;color:#1E2D40;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;font-weight:600}
 
 /* ── Auth box ── */
 .land-auth{padding:2.5rem 5vw;max-width:1100px;margin:0 auto;width:100%}
@@ -75,7 +75,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 @media(max-width:680px){.auth-grid{grid-template-columns:1fr}}
 .auth-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:2rem;box-shadow:var(--card-shadow)}
 .auth-card-title{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.4rem;display:flex;align-items:center;gap:8px}
-.auth-card-desc{font-size:.8rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.6}
+.auth-card-desc{font-size:.8rem;color:#1E2D40;margin-bottom:1.25rem;line-height:1.6}
 .auth-input{width:100%;background:var(--inp);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:.88rem;padding:.65rem .9rem;outline:none;transition:border-color .2s;margin-bottom:.65rem}
 .auth-input:focus{border-color:var(--bx)}
 .auth-err{font-size:.75rem;color:var(--bx);display:none;margin-bottom:.5rem}
@@ -106,7 +106,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .hdr-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .hdr-top-row{display:flex;align-items:center;gap:6px}
 .hdr-btn-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.ibtn{background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text2);font-size:.72rem;font-weight:600;padding:5px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:var(--font);transition:all .15s}
+.ibtn{background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:#1E2D40;font-size:.72rem;font-weight:600;padding:5px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:var(--font);transition:all .15s}
 .ibtn:hover{border-color:var(--bx);color:var(--bx);background:var(--bxdim)}
 .ibtn.danger{border-color:rgba(139,0,0,.3);color:var(--bx);background:var(--bxdim)}
 .ibtn.danger:hover{background:rgba(139,0,0,.2)}
@@ -118,7 +118,7 @@ select.lang{background:var(--surface2);border:1px solid var(--border);border-rad
 
 /* ══ TABS ══════════════════════════════════════════════ */
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);padding:0 1.25rem;overflow-x:auto}
-.tab{padding:.8rem 1.1rem;font-size:.75rem;font-weight:700;letter-spacing:.03em;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.tab{padding:.8rem 1.1rem;font-size:.75rem;font-weight:700;letter-spacing:.03em;color:#0D1117;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
 .tab:hover{color:var(--bx)}
 .tab.on{color:var(--bx);border-bottom-color:var(--bx)}
 
@@ -127,15 +127,15 @@ select.lang{background:var(--surface2);border:1px solid var(--border);border-rad
 .page.on{display:block}
 
 /* ══ CARDS ═════════════════════════════════════════════ */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--card-shadow)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--card-shadow);color:var(--text)}
 .stitle{font-size:.63rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--bx);margin-bottom:.85rem;display:flex;align-items:center;gap:8px}
 .stitle::after{content:"";flex:1;height:1px;background:var(--border)}
 
 /* ══ FORM ══════════════════════════════════════════════ */
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem}
 .fg{display:flex;flex-direction:column;gap:5px}
-label{font-size:.67rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2)}
-input[type=number],input[type=date],input[type=text],select{background:var(--inp);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:.88rem;padding:.6rem .85rem;outline:none;width:100%;appearance:none;transition:border-color .2s,box-shadow .2s}
+label{font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text2)}
+input[type=number],input[type=date],input[type=text],select{background:var(--inp);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:#0D1117;font-family:var(--font);font-size:.88rem;padding:.6rem .85rem;outline:none;width:100%;appearance:none;transition:border-color .2s,box-shadow .2s}
 input:focus,select:focus{border-color:var(--bx);box-shadow:0 0 0 3px var(--bxdim)}
 input[type=date]{color-scheme:light}
 [data-theme="dark"] input[type=date]{color-scheme:dark}
@@ -185,7 +185,7 @@ tbody tr{border-bottom:1px solid var(--border)}
 tbody tr:last-child{font-weight:700;background:var(--navy);color:#fff;border-top:2px solid var(--border2)}
 tbody tr:last-child td{color:#fff}
 tbody tr:not(:last-child):hover{background:var(--surface2)}
-tbody td{padding:.55rem .85rem;text-align:right;font-family:"Consolas","Courier New",monospace;font-size:.74rem;color:var(--text);white-space:nowrap}
+tbody td{padding:.55rem .85rem;text-align:right;font-family:"Consolas","Courier New",monospace;font-size:.74rem;color:#0D1117;white-space:nowrap}
 tbody td:first-child{text-align:center;color:var(--text3);font-size:.7rem;font-family:var(--font)}
 tbody td:nth-child(2){text-align:left;color:var(--text2);font-family:var(--font)}
 .tc{color:var(--navy) !important}
@@ -218,7 +218,7 @@ canvas{display:block}
 [data-theme="dark"] .comp-card.winner{background:rgba(15,110,86,0.08)}
 .comp-card-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
 .comp-result{font-family:monospace;font-size:1.4rem;font-weight:700;color:var(--bx);margin:.5rem 0}
-.comp-sub{font-size:.72rem;color:var(--text2)}
+.comp-sub{font-size:.72rem;color:#1E2D40}
 .comp-badge{font-size:.65rem;font-weight:700;padding:2px 10px;border-radius:20px;display:inline-block}
 .badge-win{background:var(--tealdim);color:var(--teal);border:1px solid var(--teal)}
 .badge-lose{background:var(--bxdim);color:var(--bx);border:1px solid var(--bx)}
@@ -710,7 +710,15 @@ canvas{display:block}
         <div class="fg"><label>Montant à investir (XAF)</label><div class="iu"><input type="text" id="cmp-montant-display" value="10 000 000" inputmode="numeric" oninput="fmtCmpMontant(this)"><input type="hidden" id="cmp-montant" value="10000000"><span class="iu-label">XAF</span></div></div>
         <div class="fg"><label>Durée (années)</label><div class="iu"><input type="number" id="cmp-duree" value="5" min="1" max="30"><span class="iu-label">ans</span></div></div>
         <div class="fg"><label>Taux obligataire (annuel)</label><div class="iu"><input type="number" id="cmp-taux-oblig" value="6.5" min="0" max="50" step="0.01"><span class="iu-label">%</span></div></div>
-        <div class="fg"><label>Taux épargne (livret / DAT)</label><div class="iu"><input type="number" id="cmp-taux-eparg" value="3.5" min="0" max="20" step="0.01"><span class="iu-label">%</span></div></div>
+        <div class="fg"><label>Mode de remboursement (obligation)</label>
+          <select id="cmp-mode">
+            <option value="infine" selected>In fine (défaut)</option>
+            <option value="constant">Amortissement constant</option>
+            <option value="annuites">Annuités constantes</option>
+          </select>
+        </div>
+        <div class="fg"><label>Période de différé (obligation)</label><div class="iu"><input type="number" id="cmp-differe" value="0" min="0" step="1" placeholder="0"><span class="iu-label">ans</span></div></div>
+        <div class="fg"><label>Taux épargne / livret (annuel)</label><div class="iu"><input type="number" id="cmp-taux-eparg" value="3.5" min="0" max="20" step="0.01"><span class="iu-label">%</span></div></div>
         <div class="fg"><label>Taux d'inflation annuel</label><div class="iu"><input type="number" id="cmp-inflation" value="3.0" min="0" max="30" step="0.01"><span class="iu-label">%</span></div></div>
         <div class="fg" style="align-self:end"><button class="btn" onclick="runComparateur()">▶ Comparer</button></div>
       </div>
@@ -1091,6 +1099,9 @@ function resetAll(){
   const cm=document.getElementById('cmp-montant');if(cm)cm.value='10000000';
   const cmd=document.getElementById('cmp-montant-display');if(cmd)cmd.value='10 000 000';
   ['cmp-duree','cmp-taux-oblig','cmp-taux-eparg','cmp-inflation'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.value=[5,6.5,3.5,3.0][i];});
+  var cmpmode=document.getElementById('cmp-mode');if(cmpmode)cmpmode.value='infine';
+  var cmpdiff=document.getElementById('cmp-differe');if(cmpdiff)cmpdiff.value='0';
+
   const cr=document.getElementById('cmp-results');if(cr)cr.style.display='none';
   const ceb=document.getElementById('comp-export-bar');if(ceb)ceb.style.display='none';
   // Contact fields
@@ -1155,58 +1166,120 @@ function runComparateur(){
   const rO=(+document.getElementById('cmp-taux-oblig').value||0)/100;
   const rE=(+document.getElementById('cmp-taux-eparg').value||0)/100;
   const inf=(+document.getElementById('cmp-inflation').value||0)/100;
+  const mode=document.getElementById('cmp-mode').value;
+  const nDiff=Math.min(+document.getElementById('cmp-differe').value||0, N-1);
+  const nAmort=N-nDiff; // années d'amortissement effectif
 
-  // Compound growth
-  const finalOblig=M*Math.pow(1+rO,N);
+  // ── Rendements réels (formule simplifiée demandée)
+  const rO_real=rO-inf;   // Rendement réel obligation = Taux oblig - inflation
+  const rE_real=rE-inf;   // Rendement réel livret   = Taux livret - inflation
+
+  // ── LIVRET D'ÉPARGNE — intérêt composé
   const finalEparg=M*Math.pow(1+rE,N);
-  // Real returns (adjusted for inflation)
-  const rO_real=(1+rO)/(1+inf)-1;
-  const rE_real=(1+rE)/(1+inf)-1;
-  const finalObligReal=M*Math.pow(1+rO_real,N);
-  const finalEpargReal=M*Math.pow(1+rE_real,N);
-  const gainOblig=finalOblig-M;
   const gainEparg=finalEparg-M;
+  // Capital réel livret = M*(1+rendement réel)^durée
+  const finalEpargReal=M*Math.pow(1+rE_real,N);
+
+  // ── OBLIGATION — selon le mode d'amortissement
+  let gainOblig=0, totalInterets=0, totalRembCapital=M;
+
+  if(mode==='infine'){
+    // In fine : coupon annuel = M * taux, versé chaque année, capital remboursé à la fin
+    // Pendant le différé : on paie quand même les intérêts
+    totalInterets=M*rO*N;       // intérêts sur toute la durée (différé inclus)
+    gainOblig=totalInterets;    // gain brut = total intérêts versés
+    // Capital réel obligation = M * rendement réel * durée
+    var finalObligReal=M*rO_real*N;
+
+  } else if(mode==='constant'){
+    // Amortissement constant sur nAmort années (après différé)
+    const amortAnnuel=M/nAmort;
+    let crd=M;
+    // Phase différé : intérêts sur capital plein
+    totalInterets+=M*rO*nDiff;
+    // Phase amortissement
+    for(let i=0;i<nAmort;i++){
+      totalInterets+=crd*rO;
+      crd-=amortAnnuel;
+      if(crd<0)crd=0;
+    }
+    gainOblig=totalInterets;
+    var finalObligReal=M+gainOblig-M*inf*N;
+
+  } else { // annuites
+    // Annuités constantes sur nAmort années
+    const tp=rO;
+    const ann=tp>0?M*tp/(1-Math.pow(1+tp,-nAmort)):M/nAmort;
+    // Phase différé : intérêts seulement
+    totalInterets+=M*rO*nDiff;
+    // Phase amortissement
+    let crd=M;
+    for(let i=0;i<nAmort;i++){
+      const coup=crd*tp;
+      totalInterets+=coup;
+      crd-=(ann-coup);
+      if(crd<0)crd=0;
+    }
+    gainOblig=totalInterets;
+    var finalObligReal=M+gainOblig-M*inf*N;
+  }
+
+  const finalOblig=M+gainOblig;
+
+  // Capital réel In fine (formule demandée)
+  if(mode==='infine') finalObligReal=M+M*rO_real*N;
+
+  // ── Perte pouvoir d'achat sans placement
+  const pertePdA=M*(1-inf*N);  // formule demandée
+
+  // ── Winner
   const winnerOblig=finalOblig>finalEparg;
 
-  const cards=document.getElementById('comp-cards');
-  function mkBadge(win){return win?'<span class="comp-badge badge-win">Meilleur</span>':'<span class="comp-badge badge-lose">✕</span>';}
+  // ── Build cards HTML
+  function mkBadge(win){return win?'<span class="comp-badge badge-win">Meilleur</span>':'<span class="comp-badge badge-lose">-</span>';}
+
+  const modeLabel={'infine':'In fine','constant':'Amortissement constant','annuites':'Annuités constantes'}[mode]||mode;
+
   var cardHtml='';
-  cardHtml+='<div class="comp-card '+(winnerOblig?'winner':'')+'">'; 
+  cardHtml+='<div class="comp-card '+(winnerOblig?'winner':'')+'">';
   cardHtml+='<div class="comp-card-title" style="color:var(--navy)">Obligation '+mkBadge(winnerOblig)+'</div>';
-  cardHtml+='<div style="font-size:.75rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(rO*100).toFixed(2)+' %</strong> / an</div>';
+  cardHtml+='<div style="font-size:.73rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(rO*100).toFixed(2)+' %</strong> — Mode : '+modeLabel+(nDiff>0?' — Différé : '+nDiff+' an(s)':'')+'</div>';
   cardHtml+='<div class="comp-result">'+fmtXAF(finalOblig)+'</div>';
   cardHtml+='<div class="comp-sub">Gain brut : <strong>+'+fmtXAF(gainOblig)+'</strong></div>';
-  cardHtml+='<div class="comp-sub">Rendement réel : <strong style="color:'+(rO_real>=0?'var(--teal)':'var(--bx)')+'">'+( rO_real*100).toFixed(2)+' %</strong></div>';
-  cardHtml+='<div class="comp-sub">Capital réel : <strong>'+fmtXAF(finalObligReal)+'</strong></div>';
+  cardHtml+='<div class="comp-sub">Rendement réel (taux - inflation) : <strong style="color:'+(rO_real>=0?'var(--teal)':'var(--bx)')+'">'+( rO_real*100).toFixed(2)+' %</strong></div>';
+  cardHtml+='<div class="comp-sub">Capital réel fin de période : <strong>'+fmtXAF(finalObligReal)+'</strong></div>';
   cardHtml+='</div>';
-  cardHtml+='<div class="comp-card '+(!winnerOblig?'winner':'')+'">'; 
-  cardHtml+='<div class="comp-card-title" style="color:var(--coal)">Épargne / DAT '+mkBadge(!winnerOblig)+'</div>';
-  cardHtml+='<div style="font-size:.75rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(rE*100).toFixed(2)+' %</strong> / an</div>';
+
+  cardHtml+='<div class="comp-card '+(!winnerOblig?'winner':'')+'">';
+  cardHtml+='<div class="comp-card-title" style="color:var(--coal)">Livret / DAT '+mkBadge(!winnerOblig)+'</div>';
+  cardHtml+='<div style="font-size:.73rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(rE*100).toFixed(2)+' %</strong> — Intérêts composés</div>';
   cardHtml+='<div class="comp-result" style="color:var(--coal)">'+fmtXAF(finalEparg)+'</div>';
   cardHtml+='<div class="comp-sub">Gain brut : <strong>+'+fmtXAF(gainEparg)+'</strong></div>';
-  cardHtml+='<div class="comp-sub">Rendement réel : <strong style="color:'+(rE_real>=0?'var(--teal)':'var(--bx)')+'">'+( rE_real*100).toFixed(2)+' %</strong></div>';
-  cardHtml+='<div class="comp-sub">Capital réel : <strong>'+fmtXAF(finalEpargReal)+'</strong></div>';
+  cardHtml+='<div class="comp-sub">Rendement réel (taux - inflation) : <strong style="color:'+(rE_real>=0?'var(--teal)':'var(--bx)')+'">'+( rE_real*100).toFixed(2)+' %</strong></div>';
+  cardHtml+='<div class="comp-sub">Capital réel fin de période : <strong>'+fmtXAF(finalEpargReal)+'</strong></div>';
   cardHtml+='</div>';
+
   cardHtml+='<div class="comp-card">';
   cardHtml+='<div class="comp-card-title" style="color:var(--bx)">Impact de l&#39;inflation</div>';
-  cardHtml+='<div style="font-size:.75rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(inf*100).toFixed(2)+' %</strong> / an sur '+N+' ans</div>';
+  cardHtml+='<div style="font-size:.73rem;color:var(--text2);margin-bottom:.5rem">Taux : <strong>'+(inf*100).toFixed(2)+' %</strong> / an sur '+N+' ans</div>';
   cardHtml+='<div class="comp-result" style="color:var(--bx)">'+fmtXAF(M*Math.pow(1+inf,N))+'</div>';
-  cardHtml+='<div class="comp-sub">Perte de pouvoir d&#39;achat sans placement : <strong style="color:var(--bx)">-'+fmtXAF(M*Math.pow(1+inf,N)-M)+'</strong></div>';
+  cardHtml+='<div class="comp-sub">Coût futur équivalent de '+fmtXAF(M)+' aujourd&#39;hui</div>';
+  cardHtml+='<div class="comp-sub">Perte pouvoir d&#39;achat sans placement : <strong style="color:var(--bx)">'+fmtXAF(pertePdA)+'</strong></div>';
+  cardHtml+='<div class="comp-sub" style="font-size:.68rem;color:var(--text3)">Formule : M×(1 - inflation×durée)</div>';
   cardHtml+='</div>';
+
   document.getElementById('comp-cards').innerHTML=cardHtml;
 
-  // AI comment
-  const diff=((rO-rE)*100).toFixed(2);
-  const surplus=fmtXAF(gainOblig-gainEparg);
-  const oblig_real_pct=(rO_real*100).toFixed(2);
-  const eparg_real_pct=(rE_real*100).toFixed(2);
+  // ── AI comment
+  const diff_txt=nDiff>0?' avec '+nDiff+' an(s) de différé':'';
+  const mode_txt=modeLabel.toLowerCase();
   let comment='';
   if(rO_real<0&&rE_real<0){
-    comment=`⚠ Attention : avec un taux d&#39;inflation de ${(inf*100).toFixed(1)} %, les deux placements génèrent un rendement réel négatif sur ${N} ans. Votre pouvoir d'achat diminue dans les deux cas. Le marché obligataire reste néanmoins la moins mauvaise option avec un rendement réel de ${oblig_real_pct} % contre ${eparg_real_pct} % pour l'épargne. Il est fortement recommandé d'étudier des instruments financiers à rendement plus élevé ou de diversifier votre portefeuille.`;
+    comment='Attention : avec une inflation de '+(inf*100).toFixed(1)+'%, les deux placements affichent un rendement réel négatif sur '+N+' ans. Votre pouvoir d\'achat diminue dans les deux cas. Le marché obligataire reste cependant plus performant avec un rendement réel de '+(rO_real*100).toFixed(2)+'% contre '+(rE_real*100).toFixed(2)+'% pour le livret. Consultez Afriland Bourse & Investissement pour identifier des opportunités à meilleur rendement.';
   } else if(winnerOblig){
-    comment='Sur une dur\u00e9e de '+N+' ans, le placement obligataire \u00e0 '+(rO*100).toFixed(2)+'\u0020% g\u00e9n\u00e8re un gain suppl\u00e9mentaire de '+surplus+'\u0020par rapport \u00e0 un compte d\u2019\u00e9pargne \u00e0 '+(rE*100).toFixed(2)+'\u0020%. En tenant compte de l\u2019inflation \u00e0 '+(inf*100).toFixed(1)+'\u0020%, votre rendement r\u00e9el sur le march\u00e9 obligataire est de '+oblig_real_pct+'\u0020%, ce qui '+(+oblig_real_pct>0?'pr\u00e9serve et augmente':'\u00e9rode l\u00e9g\u00e8rement')+'\u0020votre pouvoir d\u2019achat. Le march\u00e9 obligataire '+(+oblig_real_pct>0?'est clairement avantageux dans votre situation':'reste n\u00e9anmoins plus performant que l\u2019\u00e9pargne classique')+'. Afriland Bourse \u0026 Investissement peut vous accompagner dans la s\u00e9lection des meilleures obligations disponibles sur le march\u00e9 CEMAC.';
+    comment='Sur '+N+' ans, le placement obligataire à '+(rO*100).toFixed(2)+'% (mode '+mode_txt+diff_txt+') génère un gain de '+fmtXAF(gainOblig)+', supérieur au livret ('+(rE*100).toFixed(2)+'%). Le rendement réel de l\'obligation est de '+(rO_real*100).toFixed(2)+'% après inflation. Afriland Bourse & Investissement vous accompagne dans la sélection des meilleures obligations du marché CEMAC.';
   } else {
-    comment=`ℹ Dans ce scénario, le compte d'épargne offre un rendement légèrement supérieur à l'obligation. Cependant, il est important de noter que les obligations offrent souvent des avantages complémentaires : sécurité du capital, versements périodiques prévisibles, et possibilité de revente sur le marché secondaire. De plus, certaines obligations sur la DSX proposent des taux supérieurs à ${(rO*100).toFixed(2)} %. Nous vous invitons à contacter Afriland Bourse & Investissement pour découvrir les opportunités actuelles du marché.`;
+    comment='Dans ce scénario, le livret offre un rendement légèrement supérieur. Cependant les obligations offrent des avantages complémentaires : capital sécurisé, flux prévisibles, liquidité sur le marché secondaire. Certaines obligations sur la DSX affichent des taux supérieurs à '+(rO*100).toFixed(2)+'%. Contactez Afriland Bourse & Investissement pour découvrir les opportunités actuelles.';
   }
   document.getElementById('ai-comment-text').textContent=comment;
   document.getElementById('cmp-results').style.display='block';
@@ -2332,113 +2405,168 @@ function calcCouru(){
 // ══════════════════════════════════════════════════════════════
 function exportComparateurPDF(){
   if(isGuest){toast('Connectez-vous pour exporter.','err');return;}
+
+  // ── Read inputs (same as runComparateur)
   var M=+document.getElementById('cmp-montant').value||0;
   var N=+document.getElementById('cmp-duree').value||5;
   var rO=(+document.getElementById('cmp-taux-oblig').value||0)/100;
   var rE=(+document.getElementById('cmp-taux-eparg').value||0)/100;
   var inf=(+document.getElementById('cmp-inflation').value||0)/100;
+  var cmpMode=document.getElementById('cmp-mode')?document.getElementById('cmp-mode').value:'infine';
+  var nDiff=Math.min(+(document.getElementById('cmp-differe')?document.getElementById('cmp-differe').value:0)||0,N-1);
+  var nAmort=N-nDiff;
+  var modeLabels={'infine':'In fine','constant':'Amort. constant','annuites':'Annuités constantes'};
+  var modeTxt=modeLabels[cmpMode]||cmpMode;
+
+  // ── Same formulas as runComparateur ──
+  var rO_real=rO-inf;
+  var rE_real=rE-inf;
+
+  // Livret : intérêt composé
+  var finalEparg=M*Math.pow(1+rE,N);
+  var gainEparg=finalEparg-M;
+  var finalEpargReal=M*Math.pow(1+rE_real,N);
+
+  // Obligation selon mode
+  var gainOblig=0,finalObligReal=0;
+  if(cmpMode==='infine'){
+    gainOblig=M*rO*N;
+    finalObligReal=M+M*rO_real*N;
+  } else if(cmpMode==='constant'){
+    var amortAn=M/nAmort,crd=M;
+    var totI=M*rO*nDiff;
+    for(var i=0;i<nAmort;i++){totI+=crd*rO;crd-=amortAn;if(crd<0)crd=0;}
+    gainOblig=totI;
+    finalObligReal=M+gainOblig-M*inf*N;
+  } else {
+    var tp=rO,ann=tp>0?M*tp/(1-Math.pow(1+tp,-nAmort)):M/nAmort,crd2=M;
+    var totI2=M*rO*nDiff;
+    for(var j=0;j<nAmort;j++){var coup=crd2*tp;totI2+=coup;crd2-=(ann-coup);if(crd2<0)crd2=0;}
+    gainOblig=totI2;
+    finalObligReal=M+gainOblig-M*inf*N;
+  }
+  var finalOblig=M+gainOblig;
+  var winnerOblig=finalOblig>finalEparg;
+  var pertePdA=M*(1-inf*N);
   var aiText=document.getElementById('ai-comment-text')?document.getElementById('ai-comment-text').textContent:'';
   var logoEl=document.querySelector('.hdr-logo img');
 
-  // Canvas-based PDF (same method as amortissement)
+  // ── Canvas render ──
   var PW=842,PH=595,scale=2;
   var cv=document.createElement('canvas');
   cv.width=Math.round(PW*scale);cv.height=Math.round(PH*scale);
   var ctx=cv.getContext('2d');
   ctx.scale(scale,scale);
 
-  // White background
+  // Background
   ctx.fillStyle='#ffffff';ctx.fillRect(0,0,PW,PH);
 
-  // Header — white with red border bottom
+  // Header
   ctx.fillStyle='#ffffff';ctx.fillRect(0,0,PW,56);
   ctx.strokeStyle='#8B0000';ctx.lineWidth=3;
   ctx.beginPath();ctx.moveTo(0,56);ctx.lineTo(PW,56);ctx.stroke();
-  // Gold accent line
-  ctx.fillStyle='#C9960A';ctx.fillRect(0,56,PW,3);
-
-  // Logo in header
-  if(logoEl){try{ctx.drawImage(logoEl,20,8,140,40);}catch(e){}}
-  // Header text
+  ctx.fillStyle='#C9960A';ctx.fillRect(0,59,PW,3);
+  if(logoEl){try{ctx.drawImage(logoEl,20,7,140,42);}catch(e){}}
   ctx.fillStyle='#8B0000';ctx.font='bold 11px Arial,sans-serif';
   ctx.textAlign='right';ctx.textBaseline='top';
   ctx.fillText('Afriland Bourse & Investissement',PW-20,10);
-  ctx.fillStyle='#64748b';ctx.font='8px Arial,sans-serif';
+  ctx.fillStyle='#475569';ctx.font='8px Arial,sans-serif';
   ctx.fillText('Comparateur de placements — '+new Date().toLocaleDateString('fr-FR'),PW-20,26);
 
-  var y=70;
-  // Section title
-  ctx.fillStyle='#1A2B4A';ctx.font='bold 13px Arial,sans-serif';
+  var y=72;
+  ctx.fillStyle='#1A2B4A';ctx.font='bold 12px Arial,sans-serif';
   ctx.textAlign='left';ctx.textBaseline='top';
-  ctx.fillText('Comparaison des placements sur '+N+' ans',20,y);
-  y+=22;
+  ctx.fillText('Comparaison des placements — Durée : '+N+' ans | Mode oblig. : '+modeTxt+(nDiff>0?' | Différé : '+nDiff+' an(s)':''),20,y);
+  y+=20;
 
-  // 3 result cards
+  // 3 cards
   var cards=[
-    {title:'Obligation',taux:(rO*100).toFixed(2)+'%',val:M*Math.pow(1+rO,N),real:((1+rO)/(1+inf)-1),color:'#8B0000',win:M*Math.pow(1+rO,N)>M*Math.pow(1+rE,N)},
-    {title:'Epargne / DAT',taux:(rE*100).toFixed(2)+'%',val:M*Math.pow(1+rE,N),real:((1+rE)/(1+inf)-1),color:'#1A2B4A',win:M*Math.pow(1+rE,N)>M*Math.pow(1+rO,N)},
-    {title:'Impact Inflation',taux:(inf*100).toFixed(2)+'%',val:M*Math.pow(1+inf,N),real:null,color:'#92400e',win:false},
+    {
+      title:'OBLIGATION',sub:'Taux : '+(rO*100).toFixed(2)+'% — '+modeTxt+(nDiff>0?' — Différé '+nDiff+' an(s)':''),
+      val:finalOblig,gain:gainOblig,real:rO_real,realVal:finalObligReal,
+      col:'#8B0000',win:winnerOblig,
+      formula:cmpMode==='infine'?'Gain = M×taux×durée':'Gain = cumul intérêts (amort.)'
+    },
+    {
+      title:'LIVRET / DAT',sub:'Taux : '+(rE*100).toFixed(2)+'% — Intérêts composés',
+      val:finalEparg,gain:gainEparg,real:rE_real,realVal:finalEpargReal,
+      col:'#1A2B4A',win:!winnerOblig,
+      formula:'Gain = M×(1+taux)^N - M'
+    },
+    {
+      title:'IMPACT INFLATION',sub:'Taux : '+(inf*100).toFixed(2)+'% / an',
+      val:M*Math.pow(1+inf,N),gain:null,real:null,realVal:pertePdA,
+      col:'#92400e',win:false,
+      formula:'Perte = M×(1 - inflation×durée)'
+    }
   ];
-  var cW=(PW-60)/3;
+
+  var cW=Math.floor((PW-50)/3);
   cards.forEach(function(card,ci){
-    var cx=20+ci*(cW+10);
-    // Card bg
-    ctx.fillStyle=card.win?'#f0fdf4':'#f8fafc';
-    ctx.strokeStyle=card.win?'#0F6E56':'#e2e8f0';
+    var cx=20+ci*(cW+5);
+    // Card background
+    ctx.fillStyle=card.win?'#f0fdf4':(ci===2?'#fff7ed':'#f8fafc');
+    ctx.strokeStyle=card.win?'#0F6E56':(ci===2?'#d97706':'#e2e8f0');
     ctx.lineWidth=card.win?2:1;
-    ctx.beginPath();if(ctx.roundRect)ctx.roundRect(cx,y,cW,130,6);else ctx.rect(cx,y,cW,130);
+    ctx.beginPath();if(ctx.roundRect)ctx.roundRect(cx,y,cW,145,6);else ctx.rect(cx,y,cW,145);
     ctx.fill();ctx.stroke();
+    // Color bar top
+    ctx.fillStyle=card.col;ctx.fillRect(cx,y,cW,3);
+    var iy=y+8;
     // Title
-    ctx.fillStyle=card.color;ctx.font='bold 9px Arial,sans-serif';ctx.textAlign='left';ctx.textBaseline='top';
-    ctx.fillText(card.title.toUpperCase(),cx+10,y+10);
-    if(card.win){ctx.fillStyle='#0F6E56';ctx.font='bold 8px Arial,sans-serif';ctx.fillText('MEILLEUR',cx+cW-60,y+10);}
-    // Rate
-    ctx.fillStyle='#64748b';ctx.font='8px Arial,sans-serif';
-    ctx.fillText('Taux: '+card.taux,cx+10,y+26);
-    // Value
-    ctx.fillStyle=card.color;ctx.font='bold 14px Arial,sans-serif';
-    ctx.fillText(fmtXAF(card.val),cx+10,y+42);
+    ctx.fillStyle=card.col;ctx.font='bold 9px Arial,sans-serif';ctx.textAlign='left';
+    ctx.fillText(card.title,cx+8,iy);
+    if(card.win){ctx.fillStyle='#0F6E56';ctx.font='bold 7px Arial,sans-serif';ctx.fillText('MEILLEUR',cx+cW-54,iy);}
+    iy+=14;
+    // Sub
+    ctx.fillStyle='#475569';ctx.font='7.5px Arial,sans-serif';
+    ctx.fillText(card.sub,cx+8,iy);iy+=13;
+    // Main value
+    ctx.fillStyle=card.col;ctx.font='bold 13px Arial,sans-serif';
+    ctx.fillText(fmtXAF(card.val),cx+8,iy);iy+=16;
     // Gain
-    ctx.fillStyle='#475569';ctx.font='8.5px Arial,sans-serif';
-    ctx.fillText('Gain: +'+fmtXAF(card.val-M),cx+10,y+62);
-    if(card.real!==null){
+    if(card.gain!==null){
+      ctx.fillStyle='#1e293b';ctx.font='8px Arial,sans-serif';
+      ctx.fillText('Gain brut : +'+fmtXAF(card.gain),cx+8,iy);iy+=12;
+      // Rendement réel
       var rc=card.real>=0?'#0F6E56':'#8B0000';
-      ctx.fillStyle=rc;ctx.font='8.5px Arial,sans-serif';
-      ctx.fillText('Rendement reel: '+(card.real*100).toFixed(2)+'%',cx+10,y+78);
+      ctx.fillStyle=rc;ctx.font='8px Arial,sans-serif';
+      ctx.fillText('Rendement réel : '+(card.real*100).toFixed(2)+'% (taux - inflation)',cx+8,iy);iy+=12;
+      // Capital réel
+      ctx.fillStyle='#1e293b';ctx.font='8px Arial,sans-serif';
+      ctx.fillText('Capital réel fin de période : '+fmtXAF(card.realVal),cx+8,iy);iy+=12;
     } else {
       ctx.fillStyle='#92400e';ctx.font='8px Arial,sans-serif';
-      ctx.fillText('Perte pouvoir achat: -'+fmtXAF(card.val-M),cx+10,y+78);
+      ctx.fillText('Coût futur de '+fmtXAF(M)+' aujourd\'hui',cx+8,iy);iy+=12;
+      ctx.fillStyle='#7c2d12';ctx.font='8px Arial,sans-serif';
+      ctx.fillText('Perte pouvoir achat : '+fmtXAF(card.realVal),cx+8,iy);iy+=12;
     }
+    // Formula footnote
+    ctx.fillStyle='#94a3b8';ctx.font='7px Arial,sans-serif';
+    ctx.fillText(card.formula,cx+8,y+135);
   });
-  y+=145;
+  y+=150;
 
-  // AI Analysis box
-  ctx.fillStyle='#1A2B4A';ctx.fillRect(20,y,PW-40,3);
-  y+=8;
+  // AI Analysis
+  ctx.fillStyle='#1A2B4A';ctx.fillRect(20,y,PW-40,2);y+=8;
   ctx.fillStyle='#C9960A';ctx.font='bold 8px Arial,sans-serif';ctx.textAlign='left';
-  ctx.fillText('ANALYSE INDICATIVE — AFRILAND BOURSE & INVESTISSEMENT',20,y);
-  y+=14;
-
-  // Word-wrap the AI text
+  ctx.fillText('ANALYSE — AFRILAND BOURSE & INVESTISSEMENT',20,y);y+=14;
   ctx.fillStyle='#1e293b';ctx.font='9px Arial,sans-serif';
-  var words=aiText.split(' ');var line='';var maxW=PW-50;
+  var words=aiText.split(' '),line='',maxW=PW-50;
   words.forEach(function(w){
     var test=line?line+' '+w:w;
-    if(ctx.measureText(test).width>maxW&&line){
-      ctx.fillText(line,20,y);y+=13;line=w;
-    } else {line=test;}
+    if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,20,y);y+=13;line=w;}
+    else line=test;
   });
-  if(line){ctx.fillText(line,20,y);y+=13;}
+  if(line){ctx.fillText(line,20,y);}
 
-  // Footer legal
-  y=PH-20;
+  // Footer
   ctx.fillStyle='#94a3b8';ctx.font='7.5px Arial,sans-serif';ctx.textAlign='center';
-  ctx.fillText('Afriland Bourse & Investissement — A titre indicatif. Ne constitue pas un conseil en investissement.',PW/2,y);
+  ctx.fillText('Afriland Bourse & Investissement — A titre indicatif uniquement. Ne constitue pas un conseil en investissement.',PW/2,PH-12);
 
-  // Convert canvas to JPEG and build PDF
   var imgData=cv.toDataURL('image/jpeg',0.95);
   _downloadComparateurAsPDF(imgData,PW,PH,scale);
-  toast('PDF du comparateur téléchargé.','ok');
+  toast('PDF téléchargé avec succès.','ok');
 }
 
 function _downloadComparateurAsPDF(dataUrl,PW,PH,scale){

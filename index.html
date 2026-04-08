@@ -498,11 +498,7 @@ canvas{display:block}
           <input class="auth-input" type="text" id="ru" placeholder="Identifiant (ex: jean.dupont)" autocomplete="off">
           <input class="auth-input" type="password" id="rp" placeholder="Mot de passe (min. 6 caractères)">
           <input class="auth-input" type="password" id="rp2" placeholder="Confirmer le mot de passe">
-          <select class="auth-input" id="rrole" style="margin-bottom:.65rem">
-            <option value="investor">Investisseur — accès standard</option>
-            <option value="pro">Professionnel — accès complet (différé, prix émission...)</option>
-          </select>
-          <select class="auth-input" id="rq" style="margin-bottom:.65rem">
+<select class="auth-input" id="rq" style="margin-bottom:.65rem">
             <option value="">— Question secrète —</option>
             <option value="mere">Nom de jeune fille de votre mère ?</option>
             <option value="ville">Ville de naissance ?</option>
@@ -538,6 +534,42 @@ canvas{display:block}
   </div>
 
 </div><!-- /landing -->
+
+
+<!-- PROFILE CHOICE OVERLAY (shown after login) -->
+<div id="profile-overlay" style="display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem">
+  <div style="max-width:560px;width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2.25rem;text-align:center;box-shadow:var(--card-shadow)">
+    <img id="profile-logo" src="" alt="Afriland Bourse" style="height:44px;object-fit:contain;background:#fff;padding:5px 12px;border-radius:6px;margin-bottom:1.25rem">
+    <div id="profile-step1">
+      <div style="font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Choisissez votre profil</div>
+      <div style="font-size:.8rem;color:var(--text2);margin-bottom:1.5rem">Sélectionnez le mode d'accès adapté à vos besoins.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div onclick="chooseProfile('investor')" style="border:1.5px solid var(--border2);border-radius:12px;padding:1.25rem;cursor:pointer;background:var(--bg);transition:all .2s" onmouseover="this.style.borderColor='var(--bx)';this.style.background='var(--bxdim)'" onmouseout="this.style.borderColor='var(--border2)';this.style.background='var(--bg)'">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">&#128100;</div>
+          <div style="font-weight:700;color:var(--text);margin-bottom:.35rem">Investisseur</div>
+          <div style="font-size:.72rem;color:var(--text2);line-height:1.5">Simulation simple, sans paramètres techniques avancés.</div>
+        </div>
+        <div onclick="showProLogin()" style="border:1.5px solid var(--border2);border-radius:12px;padding:1.25rem;cursor:pointer;background:var(--bg);transition:all .2s" onmouseover="this.style.borderColor='var(--teal)';this.style.background='var(--tealdim)'" onmouseout="this.style.borderColor='var(--border2)';this.style.background='var(--bg)'">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">&#128188;</div>
+          <div style="font-weight:700;color:var(--text);margin-bottom:.35rem">Professionnel</div>
+          <div style="font-size:.72rem;color:var(--text2);line-height:1.5">Accès complet avec tous les paramètres avancés.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Pro login form (step 2) -->
+    <div id="profile-step2" style="display:none">
+      <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem">Accès Professionnel</div>
+      <div style="font-size:.78rem;color:var(--text2);margin-bottom:1.25rem">Entrez vos identifiants professionnels pour continuer.</div>
+      <input class="auth-input" type="text" id="pro-login-u" placeholder="Identifiant professionnel" style="margin-bottom:.6rem">
+      <input class="auth-input" type="password" id="pro-login-p" placeholder="Mot de passe" style="margin-bottom:.6rem">
+      <div id="pro-login-err" style="font-size:.75rem;color:var(--bx);display:none;margin-bottom:.5rem">Identifiant ou mot de passe incorrect, ou accès non autorisé.</div>
+      <button onclick="submitProLogin()" style="width:100%;background:var(--bx);color:#fff;font-family:inherit;font-size:.88rem;font-weight:700;padding:.75rem;border:none;border-radius:8px;cursor:pointer;margin-bottom:.5rem">Connexion Professionnel</button>
+      <button onclick="backToProfileChoice()" style="width:100%;background:transparent;color:var(--text2);font-family:inherit;font-size:.82rem;padding:.6rem;border:1px solid var(--border2);border-radius:8px;cursor:pointer">Retour</button>
+    </div>
+  </div>
+</div>
+
+</div>
 
 <!-- ADMIN OVERLAY -->
 <div id="admin-overlay">
@@ -604,7 +636,7 @@ canvas{display:block}
         <div class="fg"><label>Date d'émission</label><input type="date" id="demission"></div>
         <div class="fg" id="fg-pemission"><label>Prix d'émission</label><div class="iu"><input type="number" id="pemission" value="100" min="0" max="200" step="0.01"><span class="iu-label">%</span></div></div>
         <div class="fg" id="fg-premb"><label>Prix de remboursement</label><div class="iu"><input type="number" id="premb" value="100" min="0" max="200" step="0.01"><span class="iu-label">%</span></div></div>
-        <div class="fg" id="fg-differe" style="display:none"><label>Période de différé</label><div class="iu"><input type="number" id="differe" value="0" min="0" max="120" step="1" placeholder="0"><span class="iu-label">pér.</span></div></div>
+        <div class="fg" id="fg-differe" style="display:none"><label>Période de différé</label><div class="iu"><input type="number" id="differe" value="0" min="0" step="1" placeholder="0" oninput="validateDiffere(this)"><span class="iu-label">pér.</span></div><div id="differe-err" style="font-size:.7rem;color:var(--bx);display:none">Doit être &le; durée&nbsp;&minus;&nbsp;1</div></div>
       </div>
     </div>
 
@@ -789,6 +821,8 @@ canvas{display:block}
 // AUTH — Users stored in localStorage
 // ══════════════════════════════════════════════════════════════
 const DEFAULT_USERS=[
+  {u:'admin',p:'Afriland2025!',r:'admin',q:'mere',a:'afriland'},
+  {u:'pro1',p:'DSX2025',r:'pro',q:'ville',a:'yaounde'},
   {u:'admin',p:'Admin2025!',r:'admin',q:'mere',a:'admin'},
   {u:'pro1',p:'DSX2025',r:'pro',q:'ville',a:'yaounde'},
 ];
@@ -839,8 +873,7 @@ function doRegister(){
   if(p!==p2){err.textContent='Les mots de passe ne correspondent pas.';err.style.display='block';return;}
   const users=getUsers();
   if(users.find(x=>x.u===u)){err.textContent='Cet identifiant est déjà utilisé.';err.style.display='block';return;}
-  const role=document.getElementById('rrole')?document.getElementById('rrole').value:'investor';
-  users.push({u,p,r:role,q,a});
+  users.push({u,p,r:'investor',q,a});
   saveUsers(users);
   curUser={u,p,r:'investor',q,a};isGuest=false;isPro=false;
   err.style.display='none';
@@ -899,31 +932,91 @@ function doResetPw(){
 function launch(){
   document.getElementById('landing').style.opacity='0';
   document.getElementById('landing').style.transition='opacity .35s';
-  setTimeout(()=>{
-    document.getElementById('landing').style.display='none';
-    document.getElementById('app').style.display='block';
-  },350);
-  // Pro fields
-  const pro=isPro||(!isGuest&&curUser?.r!=='investor');
+  setTimeout(()=>{document.getElementById('landing').style.display='none';},350);
+  if(isGuest){
+    // Guest — go directly to app as investor
+    isPro=false;
+    showApp();
+  } else {
+    // Logged in — show profile choice overlay
+    const logoEl=document.querySelector('.land-hero-content img');
+    if(logoEl) document.getElementById('profile-logo').src=logoEl.src;
+    const overlay=document.getElementById('profile-overlay');
+    // Reset to step 1
+    document.getElementById('profile-step1').style.display='block';
+    document.getElementById('profile-step2').style.display='none';
+    overlay.style.display='flex';
+  }
+}
+function chooseProfile(profile){
+  isPro=(profile==='pro');
+  document.getElementById('profile-overlay').style.display='none';
+  showApp();
+}
+function showProLogin(){
+  document.getElementById('profile-step1').style.display='none';
+  document.getElementById('profile-step2').style.display='block';
+  document.getElementById('pro-login-u').value='';
+  document.getElementById('pro-login-p').value='';
+  document.getElementById('pro-login-err').style.display='none';
+}
+function backToProfileChoice(){
+  document.getElementById('profile-step2').style.display='none';
+  document.getElementById('profile-step1').style.display='block';
+}
+function submitProLogin(){
+  const u=document.getElementById('pro-login-u').value.trim();
+  const p=document.getElementById('pro-login-p').value;
+  const found=getUsers().find(x=>x.u===u&&x.p===p&&(x.r==='pro'||x.r==='admin'));
+  if(!found){
+    document.getElementById('pro-login-err').style.display='block';
+    return;
+  }
+  // Update curUser to the pro/admin account
+  curUser=found;
+  isPro=true;
+  document.getElementById('profile-overlay').style.display='none';
+  showApp();
+}
+function showApp(){
+  document.getElementById('app').style.display='block';
   document.getElementById('fg-pemission').style.display=isPro?'':'none';
   document.getElementById('fg-premb').style.display=isPro?'':'none';
-  // Admin button
+  document.getElementById('fg-differe').style.display=isPro?'':'none';
   if(curUser?.r==='admin')document.getElementById('admbtn').style.display='';
-  // User pill
   const pill=document.getElementById('user-pill');
   if(isGuest){pill.textContent='Invité';}
-  else{pill.textContent=curUser.u+(curUser.r==='admin'?' (Admin)':curUser.r==='pro'?' (Pro)':'');}
-  // Export buttons lock
+  else{pill.textContent=curUser.u+(curUser.r==='admin'?' (Admin)':isPro?' (Pro)':'');}
   updateExportLock();
-  // Show différé field if pro
   onModeChange();
   applyLang();
 }
 function doLogout(){
   curUser=null;isGuest=false;isPro=false;
+  // Reset all landing page fields
+  ['lu','lp','forgot-user','forgot-ans','forgot-new-pw'].forEach(id=>{
+    var el=document.getElementById(id);if(el)el.value='';if(el)el.disabled=false;
+  });
+  ['ru','rp','rp2','ra'].forEach(id=>{var el=document.getElementById(id);if(el)el.value='';});
+  var rq=document.getElementById('rq');if(rq)rq.selectedIndex=0;
+  var lerr=document.getElementById('lerr');if(lerr)lerr.style.display='none';
+  var rerr=document.getElementById('rerr');if(rerr)rerr.style.display='none';
+  // Hide forgot form, show login
+  var ff=document.getElementById('forgot-form');if(ff)ff.style.display='none';
+  var fl=document.getElementById('forgot-lookup-btn');if(fl)fl.style.display='block';
+  var fq=document.getElementById('forgot-q-wrap');if(fq)fq.style.display='none';
+  var fn=document.getElementById('forgot-new-wrap');if(fn)fn.style.display='none';
+  // Reset register form
+  var rf=document.getElementById('reg-form');if(rf)rf.style.display='none';
+  var rc=document.getElementById('reg-choice');if(rc)rc.style.display='block';
+  // Hide app, show landing
+  document.getElementById('app').style.display='none';
+  document.getElementById('profile-overlay').style.display='none';
+  document.getElementById('admbtn').style.display='none';
   document.getElementById('landing').style.display='flex';
   document.getElementById('landing').style.opacity='1';
-  document.getElementById('app').style.display='none';
+  // Reset simulation fields too
+  resetAll();
 }
 function updateExportLock(){
   const locked=isGuest;
@@ -980,24 +1073,32 @@ function showTab(id,el){
 // RESET
 // ══════════════════════════════════════════════════════════════
 function resetAll(){
-  document.getElementById('nominal').value='10000000';
-  document.getElementById('nominal-display').value='10 000 000';
-  document.getElementById('taux').value='6.5';
-  document.getElementById('duree').value='5';
-  document.getElementById('perio').value='1';
-  document.getElementById('mode').value='constant';
-  document.getElementById('demission').value=new Date().toISOString().split('T')[0];
-  document.getElementById('pemission').value='100';
-  document.getElementById('premb').value='100';
-  document.getElementById('tcr').checked=false;
-  document.getElementById('couru-wrap').classList.remove('open');
-  document.getElementById('cr-box').classList.remove('show');
-  document.getElementById('dvaleur').value='';
-  document.getElementById('dlast').value='';
-  document.getElementById('results').style.display='none';
-  document.getElementById('empty').style.display='block';
+  // Obligations fields
+  ['nominal','pemission','premb'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=id==='nominal'?'10000000':'100';});
+  const nd=document.getElementById('nominal-display');if(nd)nd.value='10 000 000';
+  const fd=document.getElementById('differe');if(fd)fd.value='0';
+  ['taux','duree'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=id==='taux'?'6.5':'5';});
+  const perio=document.getElementById('perio');if(perio)perio.value='1';
+  const mode=document.getElementById('mode');if(mode)mode.value='constant';
+  const dem=document.getElementById('demission');if(dem)dem.value=new Date().toISOString().split('T')[0];
+  const tcr=document.getElementById('tcr');if(tcr)tcr.checked=false;
+  const cw=document.getElementById('couru-wrap');if(cw)cw.classList.remove('open');
+  const cb=document.getElementById('cr-box');if(cb)cb.classList.remove('show');
+  ['dvaleur','dlast'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const res=document.getElementById('results');if(res)res.style.display='none';
+  const emp=document.getElementById('empty');if(emp)emp.style.display='block';
+  // Comparateur fields
+  const cm=document.getElementById('cmp-montant');if(cm)cm.value='10000000';
+  const cmd=document.getElementById('cmp-montant-display');if(cmd)cmd.value='10 000 000';
+  ['cmp-duree','cmp-taux-oblig','cmp-taux-eparg','cmp-inflation'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.value=[5,6.5,3.5,3.0][i];});
+  const cr=document.getElementById('cmp-results');if(cr)cr.style.display='none';
+  const ceb=document.getElementById('comp-export-bar');if(ceb)ceb.style.display='none';
+  // Contact fields
+  ['rdv-nom','rdv-email','rdv-tel','rdv-msg'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const rdvd=document.getElementById('rdv-date');if(rdvd)rdvd.value='';
+  // Charts
   rows=[];window._chartData=null;
-  toast('Formulaire réinitialisé.','ok');
+  toast('Tous les champs ont été réinitialisés.','ok');
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1196,10 +1297,9 @@ function buildRows(){
   const dEmStr=document.getElementById('demission').value;
   const dEm=dEmStr?new Date(dEmStr):new Date();
   // Période de différé (Pro only) — nombre de périodes sans remboursement capital
-  const diffEl=document.getElementById('differe');
-  const nDiff=isPro&&diffEl&&mode!=='infine'?Math.max(0,+diffEl.value||0):0;
-
   const n=dur*per; // total periods including différé
+  const diffEl=document.getElementById('differe');
+  const nDiff=isPro&&diffEl&&mode!=='infine'?Math.min(Math.max(0,+diffEl.value||0),(n>1?n-1:0)):0;
   const nAmort=n-nDiff; // periods with capital repayment
   const tp=taux/per;
   const pDays=Math.round(365/per);
@@ -1859,7 +1959,7 @@ function _buildAndDownloadPDF(){
   const CWIDTHS=[28,52,98,88,108,88,98,98]; // col widths in pt
   const ROWH=14;
   const HDR_H=18;
-  const PARAMS=[
+  var PARAMS=[
     ['Nominal / Montant investi', fmtXAF(nom)],
     ['Taux nominal annuel', taux+' %'],
     ['Durée', dur+' ans'],
@@ -1869,6 +1969,14 @@ function _buildAndDownloadPDF(){
     ['Total intérêts', fmtXAF(last.cumI)],
     ['Total flux', fmtXAF(last.cumI+last.cumA)],
   ];
+  if(isPro){
+    var pEmVal=(+document.getElementById('pemission').value||100);
+    var pRbVal=(+document.getElementById('premb').value||100);
+    var nDfVal=+(document.getElementById('differe')?document.getElementById('differe').value:0)||0;
+    if(pEmVal!==100) PARAMS.push(['Prix d\'émission', pEmVal+' %']);
+    if(pRbVal!==100) PARAMS.push(['Prix de remboursement', pRbVal+' %']);
+    if(nDfVal>0) PARAMS.push(['Période de différé', nDfVal+' période(s)']);
+  }
 
   // Calculate how many rows fit per page
   const contentH=PH-M*2-60; // 60 = header+params height
@@ -2181,6 +2289,20 @@ function onModeChange(){
   if(fg) fg.style.display = (isPro && mode !== 'infine') ? '' : 'none';
 }
 
+
+function validateDiffere(el){
+  const dur=+document.getElementById('duree').value||5;
+  const per=+document.getElementById('perio').value||1;
+  const maxDiff=(dur*per)-1;
+  const val=+el.value;
+  const errEl=document.getElementById('differe-err');
+  if(val>maxDiff){
+    el.value=maxDiff;
+    if(errEl)errEl.style.display='block';
+    setTimeout(()=>{if(errEl)errEl.style.display='none';},3000);
+  }
+}
+
 function exportPrint(){ window.print(); }
 
 function calcCouru(){
@@ -2210,53 +2332,166 @@ function calcCouru(){
 // ══════════════════════════════════════════════════════════════
 function exportComparateurPDF(){
   if(isGuest){toast('Connectez-vous pour exporter.','err');return;}
-  var cardsHtml=document.getElementById('comp-cards').innerHTML;
-  var aiText=document.getElementById('ai-comment-text').textContent;
-  var logoSrc='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgS...';
+  var M=+document.getElementById('cmp-montant').value||0;
+  var N=+document.getElementById('cmp-duree').value||5;
+  var rO=(+document.getElementById('cmp-taux-oblig').value||0)/100;
+  var rE=(+document.getElementById('cmp-taux-eparg').value||0)/100;
+  var inf=(+document.getElementById('cmp-inflation').value||0)/100;
+  var aiText=document.getElementById('ai-comment-text')?document.getElementById('ai-comment-text').textContent:'';
   var logoEl=document.querySelector('.hdr-logo img');
-  if(logoEl) logoSrc=logoEl.src;
 
-  var doc='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">'
-    +'<title>Comparateur Afriland Bourse</title>'
-    +'<style>'
-    +'*{box-sizing:border-box;margin:0;padding:0}'
-    +'body{font-family:"Segoe UI",Arial,sans-serif;font-size:11px;color:#1e293b;background:#fff;padding:20px}'
-    +'.hdr{background:#fff;border:1px solid #e2e8f0;padding:12px 18px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;border-bottom:3px solid #8B0000}'
-    +'.hdr img{height:44px;object-fit:contain}'
-    +'.hdr-right{font-size:9px;color:#64748b;text-align:right;line-height:1.5}'
-    +'.gold{height:3px;background:#C9960A;border-radius:2px;margin-bottom:14px}'
-    +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}'
-    +'.comp-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px}'
-    +'.comp-card.winner{border-color:#0F6E56;background:#f0fdf4}'
-    +'.comp-card-title{font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:8px;color:#1A2B4A}'
-    +'.comp-result{font-size:1.1rem;font-weight:800;color:#8B0000;margin:.4rem 0}'
-    +'.comp-sub{font-size:9px;color:#475569;margin-top:3px}'
-    +'.badge-win{background:#d1fae5;color:#065f46;border:1px solid #0F6E56;font-size:8px;padding:1px 7px;border-radius:10px;display:inline-block}'
-    +'.badge-lose{background:#fee2e2;color:#7f1d1d;border:1px solid #8B0000;font-size:8px;padding:1px 7px;border-radius:10px;display:inline-block}'
-    +'.ai{background:linear-gradient(135deg,#1A2B4A,#2a3f6f);border-radius:8px;padding:14px;color:#fff;border-left:4px solid #C9960A;margin-bottom:12px}'
-    +'.ai-title{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C9960A;margin-bottom:8px}'
-    +'.ai-text{font-size:10px;line-height:1.7}'
-    +'.footer{font-size:8px;color:#94a3b8;text-align:center;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:10px}'
-    +'@media print{@page{margin:8mm;size:A4}}'
-    +'</style></head><body>'
-    +'<div class="hdr">'
-    +'<img src="'+logoSrc+'" alt="Afriland Bourse" style="height:44px;object-fit:contain;background:#ffffff;padding:5px 12px;border-radius:7px">'
-    +'<div class="hdr-right"><strong style="color:#8B0000;font-size:11px">Afriland Bourse &amp; Investissement</strong><br>Comparateur de placements<br>'+new Date().toLocaleDateString('fr-FR')+'</div>'
-    +'</div>'
-    +'<div class="gold"></div>'
-    +'<div class="grid">'+cardsHtml+'</div>'
-    +'<div class="ai"><div class="ai-title">Analyse indicative — Afriland Bourse &amp; Investissement</div>'
-    +'<div class="ai-text">'+aiText+'</div></div>'
-    +'<div class="footer">Afriland Bourse &amp; Investissement — A titre indicatif uniquement. Ne constitue pas un conseil en investissement.</div>'
-    +'<script>window.addEventListener("load",function(){setTimeout(function(){window.print();},400);});<\/script>'
-    +'</body></html>';
+  // Canvas-based PDF (same method as amortissement)
+  var PW=842,PH=595,scale=2;
+  var cv=document.createElement('canvas');
+  cv.width=Math.round(PW*scale);cv.height=Math.round(PH*scale);
+  var ctx=cv.getContext('2d');
+  ctx.scale(scale,scale);
 
-  var b64=btoa(unescape(encodeURIComponent(doc)));
+  // White background
+  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,PW,PH);
+
+  // Header — white with red border bottom
+  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,PW,56);
+  ctx.strokeStyle='#8B0000';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(0,56);ctx.lineTo(PW,56);ctx.stroke();
+  // Gold accent line
+  ctx.fillStyle='#C9960A';ctx.fillRect(0,56,PW,3);
+
+  // Logo in header
+  if(logoEl){try{ctx.drawImage(logoEl,20,8,140,40);}catch(e){}}
+  // Header text
+  ctx.fillStyle='#8B0000';ctx.font='bold 11px Arial,sans-serif';
+  ctx.textAlign='right';ctx.textBaseline='top';
+  ctx.fillText('Afriland Bourse & Investissement',PW-20,10);
+  ctx.fillStyle='#64748b';ctx.font='8px Arial,sans-serif';
+  ctx.fillText('Comparateur de placements — '+new Date().toLocaleDateString('fr-FR'),PW-20,26);
+
+  var y=70;
+  // Section title
+  ctx.fillStyle='#1A2B4A';ctx.font='bold 13px Arial,sans-serif';
+  ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.fillText('Comparaison des placements sur '+N+' ans',20,y);
+  y+=22;
+
+  // 3 result cards
+  var cards=[
+    {title:'Obligation',taux:(rO*100).toFixed(2)+'%',val:M*Math.pow(1+rO,N),real:((1+rO)/(1+inf)-1),color:'#8B0000',win:M*Math.pow(1+rO,N)>M*Math.pow(1+rE,N)},
+    {title:'Epargne / DAT',taux:(rE*100).toFixed(2)+'%',val:M*Math.pow(1+rE,N),real:((1+rE)/(1+inf)-1),color:'#1A2B4A',win:M*Math.pow(1+rE,N)>M*Math.pow(1+rO,N)},
+    {title:'Impact Inflation',taux:(inf*100).toFixed(2)+'%',val:M*Math.pow(1+inf,N),real:null,color:'#92400e',win:false},
+  ];
+  var cW=(PW-60)/3;
+  cards.forEach(function(card,ci){
+    var cx=20+ci*(cW+10);
+    // Card bg
+    ctx.fillStyle=card.win?'#f0fdf4':'#f8fafc';
+    ctx.strokeStyle=card.win?'#0F6E56':'#e2e8f0';
+    ctx.lineWidth=card.win?2:1;
+    ctx.beginPath();if(ctx.roundRect)ctx.roundRect(cx,y,cW,130,6);else ctx.rect(cx,y,cW,130);
+    ctx.fill();ctx.stroke();
+    // Title
+    ctx.fillStyle=card.color;ctx.font='bold 9px Arial,sans-serif';ctx.textAlign='left';ctx.textBaseline='top';
+    ctx.fillText(card.title.toUpperCase(),cx+10,y+10);
+    if(card.win){ctx.fillStyle='#0F6E56';ctx.font='bold 8px Arial,sans-serif';ctx.fillText('MEILLEUR',cx+cW-60,y+10);}
+    // Rate
+    ctx.fillStyle='#64748b';ctx.font='8px Arial,sans-serif';
+    ctx.fillText('Taux: '+card.taux,cx+10,y+26);
+    // Value
+    ctx.fillStyle=card.color;ctx.font='bold 14px Arial,sans-serif';
+    ctx.fillText(fmtXAF(card.val),cx+10,y+42);
+    // Gain
+    ctx.fillStyle='#475569';ctx.font='8.5px Arial,sans-serif';
+    ctx.fillText('Gain: +'+fmtXAF(card.val-M),cx+10,y+62);
+    if(card.real!==null){
+      var rc=card.real>=0?'#0F6E56':'#8B0000';
+      ctx.fillStyle=rc;ctx.font='8.5px Arial,sans-serif';
+      ctx.fillText('Rendement reel: '+(card.real*100).toFixed(2)+'%',cx+10,y+78);
+    } else {
+      ctx.fillStyle='#92400e';ctx.font='8px Arial,sans-serif';
+      ctx.fillText('Perte pouvoir achat: -'+fmtXAF(card.val-M),cx+10,y+78);
+    }
+  });
+  y+=145;
+
+  // AI Analysis box
+  ctx.fillStyle='#1A2B4A';ctx.fillRect(20,y,PW-40,3);
+  y+=8;
+  ctx.fillStyle='#C9960A';ctx.font='bold 8px Arial,sans-serif';ctx.textAlign='left';
+  ctx.fillText('ANALYSE INDICATIVE — AFRILAND BOURSE & INVESTISSEMENT',20,y);
+  y+=14;
+
+  // Word-wrap the AI text
+  ctx.fillStyle='#1e293b';ctx.font='9px Arial,sans-serif';
+  var words=aiText.split(' ');var line='';var maxW=PW-50;
+  words.forEach(function(w){
+    var test=line?line+' '+w:w;
+    if(ctx.measureText(test).width>maxW&&line){
+      ctx.fillText(line,20,y);y+=13;line=w;
+    } else {line=test;}
+  });
+  if(line){ctx.fillText(line,20,y);y+=13;}
+
+  // Footer legal
+  y=PH-20;
+  ctx.fillStyle='#94a3b8';ctx.font='7.5px Arial,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Afriland Bourse & Investissement — A titre indicatif. Ne constitue pas un conseil en investissement.',PW/2,y);
+
+  // Convert canvas to JPEG and build PDF
+  var imgData=cv.toDataURL('image/jpeg',0.95);
+  _downloadComparateurAsPDF(imgData,PW,PH,scale);
+  toast('PDF du comparateur téléchargé.','ok');
+}
+
+function _downloadComparateurAsPDF(dataUrl,PW,PH,scale){
+  var b64=dataUrl.split(',')[1];
+  var raw=atob(b64);
+  var imgW=Math.round(PW*scale),imgH=Math.round(PH*scale);
+
+  var out='%PDF-1.4\n';
+  var xrefs=[];
+  var objCount=0;
+
+  function writeObj(content){
+    objCount++;xrefs.push(out.length);
+    out+=objCount+' 0 obj\n'+content+'\nendobj\n';
+    return objCount;
+  }
+
+  writeObj('<< /Type /Catalog /Pages 2 0 R >>'); // 1
+  writeObj('<< /Type /Pages /Kids [3 0 R] /Count 1 >>'); // 2
+
+  // Image object (3)
+  var hexStr='';
+  for(var hi=0;hi<raw.length;hi++){
+    var b=raw.charCodeAt(hi);hexStr+=(b<16?'0':'')+b.toString(16);
+  }
+  hexStr+='>';
+  xrefs.push(out.length);objCount++;
+  out+=objCount+' 0 obj\n<< /Type /XObject /Subtype /Image /Width '+imgW+' /Height '+imgH+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter [/ASCIIHexDecode /DCTDecode] /Length '+hexStr.length+' >>\nstream\n'+hexStr+'\nendstream\nendobj\n';
+
+  // Content stream (4)
+  var cs='q '+PW+' 0 0 '+PH+' 0 0 cm /Im0 Do Q';
+  writeObj('<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream'); // 4
+
+  // Page (5)
+  writeObj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PW+' '+PH+'] /Resources << /XObject << /Im0 3 0 R >> >> /Contents 4 0 R >>'); // 5
+
+  // Fix page parent
+  out=out.replace('<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Pages /Kids [5 0 R] /Count 1 >>');
+
+  var xrefPos=out.length;
+  out+='xref\n0 '+(objCount+1)+'\n0000000000 65535 f \n';
+  xrefs.forEach(function(p){out+=p.toString().padStart(10,'0')+' 00000 n \n';});
+  out+='trailer\n<< /Size '+(objCount+1)+' /Root 1 0 R >>\nstartxref\n'+xrefPos+'\n%%EOF';
+
+  var bytes=new Uint8Array(out.length);
+  for(var i=0;i<out.length;i++)bytes[i]=out.charCodeAt(i)&0xFF;
+  var bin='';
+  for(var j=0;j<bytes.length;j+=8192)bin+=String.fromCharCode.apply(null,bytes.subarray(j,j+8192));
+  var pdfB64=btoa(bin);
   var a=document.createElement('a');
-  a.href='data:text/html;charset=utf-8;base64,'+b64;
-  a.download='Afriland_Comparateur_'+new Date().toISOString().split('T')[0]+'.html';
+  a.href='data:application/pdf;base64,'+pdfB64;
+  a.download='Afriland_Comparateur_'+new Date().toISOString().split('T')[0]+'.pdf';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
-  toast('Ouvrez le fichier téléchargé et imprimez en PDF','ok');
 }
 
 </script>

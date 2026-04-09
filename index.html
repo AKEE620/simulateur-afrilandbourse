@@ -2,7 +2,7 @@
 <html lang="fr" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Afriland Bourse & Investissement — Simulateur</title>
 <style>
 /* ══ THEMES ═══════════════════════════════════════════ */
@@ -76,11 +76,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .auth-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:2rem;box-shadow:var(--card-shadow)}
 .auth-card-title{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.4rem;display:flex;align-items:center;gap:8px}
 .auth-card-desc{font-size:.8rem;color:#1E2D40;margin-bottom:1.25rem;line-height:1.6}
-.auth-input{width:100%;background:var(--inp);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:.88rem;padding:.65rem .9rem;outline:none;transition:border-color .2s;margin-bottom:.65rem}
-.auth-input:focus{border-color:var(--bx)}
+.auth-input{width:100%;background:var(--inp);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:#0D1117;font-family:var(--font);font-size:1rem;padding:.75rem .9rem;outline:none;transition:border-color .2s;margin-bottom:.65rem;min-height:48px;-webkit-appearance:none;touch-action:manipulation}
+.auth-input:focus{border-color:var(--bx);box-shadow:0 0 0 3px var(--bxdim)}
 .auth-err{font-size:.75rem;color:var(--bx);display:none;margin-bottom:.5rem}
-.auth-btn{width:100%;background:var(--bx);color:#fff;font-family:var(--font);font-size:.88rem;font-weight:700;padding:.75rem;border:none;border-radius:var(--radius-sm);cursor:pointer;transition:opacity .15s,transform .15s;margin-top:.25rem}
-.auth-btn:hover{opacity:.88;transform:translateY(-1px)}
+.auth-btn{width:100%;background:var(--bx);color:#fff;font-family:var(--font);font-size:.88rem;font-weight:700;padding:.85rem;border:none;border-radius:var(--radius-sm);cursor:pointer;transition:opacity .15s;margin-top:.25rem;min-height:48px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.auth-btn:hover{opacity:.88}
+.auth-btn:active{opacity:.75}
 .auth-btn.outline{background:transparent;color:var(--navy);border:1.5px solid var(--navy);margin-top:.5rem}
 [data-theme="dark"] .auth-btn.outline{color:var(--text);border-color:var(--border2)}
 .auth-btn.outline:hover{background:var(--navydim)}
@@ -463,8 +464,8 @@ canvas{display:block}
       <div class="auth-card" id="login-card">
         <div class="auth-card-title"> Se connecter</div>
         <div class="auth-card-desc">Accédez à toutes les fonctionnalités : export Excel, PDF, impression et options avancées.</div>
-        <input class="auth-input" type="text" id="lu" placeholder="Identifiant" autocomplete="username">
-        <input class="auth-input" type="password" id="lp" placeholder="Mot de passe" autocomplete="current-password">
+        <input class="auth-input" type="text" id="lu" placeholder="Identifiant" autocomplete="username" inputmode="text">
+        <input class="auth-input" type="password" id="lp" placeholder="Mot de passe" autocomplete="current-password" inputmode="text">
         <div class="auth-err" id="lerr">Identifiant ou mot de passe incorrect.</div>
         <button class="auth-btn" onclick="doLogin()">Se connecter →</button>
         <div class="auth-sep">ou</div>
@@ -831,20 +832,52 @@ canvas{display:block}
 const DEFAULT_USERS=[
   {u:'admin',p:'Afriland2025!',r:'admin',q:'mere',a:'afriland'},
   {u:'pro1',p:'DSX2025',r:'pro',q:'ville',a:'yaounde'},
-  {u:'admin',p:'Admin2025!',r:'admin',q:'mere',a:'admin'},
-  {u:'pro1',p:'DSX2025',r:'pro',q:'ville',a:'yaounde'},
 ];
-function getUsers(){try{const s=localStorage.getItem('afb_users');return s?JSON.parse(s):DEFAULT_USERS;}catch{return DEFAULT_USERS;}}
-function saveUsers(u){try{localStorage.setItem('afb_users',JSON.stringify(u));}catch{}}
+function getUsers(){
+  // Always merge localStorage users with DEFAULT_USERS
+  // Default accounts are ALWAYS present (permanent)
+  try{
+    const s=localStorage.getItem('afb_users');
+    const stored=s?JSON.parse(s):[];
+    // Merge: keep stored users, always ensure defaults exist
+    const merged=[...DEFAULT_USERS];
+    stored.forEach(su=>{
+      // Add stored user only if not a duplicate of a default account
+      if(!DEFAULT_USERS.find(d=>d.u===su.u)){
+        merged.push(su);
+      }
+    });
+    return merged;
+  }catch{return DEFAULT_USERS;}
+}
+function saveUsers(u){
+  // Save only non-default users to localStorage
+  try{
+    const toSave=u.filter(su=>!DEFAULT_USERS.find(d=>d.u===su.u));
+    localStorage.setItem('afb_users',JSON.stringify(toSave));
+  }catch{}
+}
 
 let curUser=null;
 let isGuest=false;
 let isPro=false;
 
 function showLandingAuth(mode){
-  // Just scroll to the auth section - both cards always visible
-  document.querySelector('.land-auth').scrollIntoView({behavior:'smooth'});
-  if(mode==='register') showRegForm();
+  const authEl=document.querySelector('.land-auth');
+  if(authEl){
+    authEl.scrollIntoView({behavior:'smooth',block:'start'});
+    // On mobile, add extra scroll after keyboard appears
+    setTimeout(()=>{
+      if(mode==='register'){showRegForm();}
+      const target=mode==='register'?document.getElementById('ru'):document.getElementById('lu');
+      if(target){
+        setTimeout(()=>{
+          target.scrollIntoView({behavior:'smooth',block:'center'});
+          target.focus();
+        },400);
+      }
+    },300);
+  }
 }
 function showRegForm(){
   document.getElementById('reg-form').style.display='block';
@@ -861,11 +894,20 @@ function doLogin(){
   curUser=found;isGuest=false;isPro=(found.r==='pro'||found.r==='admin');
   launch();
 }
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    const lp=document.getElementById('lp');
-    if(document.activeElement===lp||document.activeElement===document.getElementById('lu'))doLogin();
-  }
+// Enter key for login — works on desktop and mobile
+['lu','lp'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();doLogin();}});
+});
+// Enter key for register
+['ru','rp','rp2','ra'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();doRegister();}});
+});
+// Enter key for pro login in profile overlay
+['pro-login-u','pro-login-p'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submitProLogin();}});
 });
 
 // ── REGISTER ──────────────────────────────────────────────────
